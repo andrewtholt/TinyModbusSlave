@@ -40,7 +40,7 @@ char *strsave(char *s)
 //-----------------------------------------------------------------------------
 int u16OpenSerialPort(char *acSerialPortName, speed_t tBaudRate)
 {	
-	int iSerialPort;
+//	int iSerialPort;
     int fd=-1;
 
     if( tBaudRate == 0) {
