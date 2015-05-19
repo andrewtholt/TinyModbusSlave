@@ -528,6 +528,10 @@ int main(int argc, char *argv[]) {
             printf("\tFor me!\n");
         } else {
             printf("\tNot For me!\n");
+            /*
+             * Should now start a timer that is restarted every time a byte is recieved.
+             * On time out go and wait for another id byte.
+             */
             exit(0);
         }
         
@@ -546,7 +550,6 @@ int main(int argc, char *argv[]) {
                 break;
             case 0x10:
                 exception=writeMultipleRegisters(tty,rtu,func);
- 
                 break;
         }
         
