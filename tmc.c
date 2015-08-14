@@ -487,6 +487,7 @@ int main(int argc, char *argv[]) {
     int rc;
     int opt;
     extern char *optarg;
+    int runFlag = 1;
     
     char serialDev[255];
     strcpy(serialDev,"/dev/ttyUSB0");
@@ -512,7 +513,7 @@ int main(int argc, char *argv[]) {
     printf("%d\n",tty);
     
     rc=joinModbus(tty);
-    while ( 1 == 1 ) {
+    while ( runFlag ) {
 
         uchCRCHi = 0xff;
         uchCRCLo = 0xff;
@@ -547,6 +548,9 @@ int main(int argc, char *argv[]) {
                 break;
             case 0x10:
                 exception=writeMultipleRegisters(tty,rtu,func);
+                break;
+            default:
+                exception=ILL_FUNC; // Illegal or undefined function.
                 break;
         }
         
