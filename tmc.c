@@ -360,7 +360,6 @@ int writeSingleCoil(int tty, unsigned char rtu, unsigned char func) {
     address= ( addressHi << 8) & 0xff00;
     
     addressLo=getByte(tty);
-    
         
     address |= ( addressLo & 0xff);
     printf("Address %04x\n", address);
@@ -382,7 +381,6 @@ int writeSingleCoil(int tty, unsigned char rtu, unsigned char func) {
         printf("bitAddressLo=%02x\n",bitAddressLo);
         
         word= (data[ (bitAddressHi *2)+1 ]) | ( data[ bitAddressHi*2] << 8);
-        
         
         printf("Word=%04x\n",word);
         
@@ -410,9 +408,8 @@ int writeSingleCoil(int tty, unsigned char rtu, unsigned char func) {
                     rc= ILL_VALUE;
                     break;
             }
-            
-            
         }
+
         for (i=0; i<DATA_SIZE; i++) {
             printf("%02x:", data[i]);
         }
