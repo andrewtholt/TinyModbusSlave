@@ -19,8 +19,9 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 
-char *strsave(char *s)
-{
+void eFlushSerialPort(int );
+
+char *strsave(char *s) {
     char           *p;
 
     if ((p = (char *) malloc(strlen(s) + 1)) != NULL)
@@ -30,16 +31,15 @@ char *strsave(char *s)
 
 
 //-----------------------------------------------------------------------------
-// Name: u16OpenSerialPort
+// Name: openSerialPort
 // 
 // Description:	Opens the serial port for comminucation 
 //
 // Returns: 
-//		jen_fd:	The file descriptor for the serial port
+//		fd:	The file descriptor for the serial port
 //
 //-----------------------------------------------------------------------------
-int u16OpenSerialPort(char *acSerialPortName, speed_t tBaudRate)
-{	
+int openSerialPort(char *acSerialPortName, speed_t tBaudRate) {	
 //	int iSerialPort;
     int fd=-1;
 
@@ -53,14 +53,14 @@ int u16OpenSerialPort(char *acSerialPortName, speed_t tBaudRate)
 
     if( fd < 0) {
 		printf("serial: Can't open serial port - %s\n", acSerialPortName);
-        perror("u16OpenSerialPort");
+        perror("openSerialPort");
 		exit (0);
 	}
 
 	printf("serial: Opening Serial Port (%d)\n", fd); 
 
 	//-------------------------------------
-	// Then initialise UART to Jennic chip
+	// Then initialise UART 
 	//-------------------------------------
 	iConfigureSerialPort(fd, tBaudRate);
 
@@ -69,7 +69,7 @@ int u16OpenSerialPort(char *acSerialPortName, speed_t tBaudRate)
 }
 
 //-----------------------------------------------------------------------------
-// Name: 	teCloseSerialPort()
+// Name: 	closeSerialPort()
 //
 // Description: This function waits for input on socket and the serial port.
 //	When something arrives, it gets processed. Then the function returns. 
@@ -81,14 +81,11 @@ int u16OpenSerialPort(char *acSerialPortName, speed_t tBaudRate)
 // Returns:
 //		
 //-----------------------------------------------------------------------------
-int teCloseSerialPort(int iSerialPort)
-{
-	int eJenzigError ;
+void closeSerialPort(int iSerialPort) {
 
 	eFlushSerialPort(iSerialPort);
 	close(iSerialPort);
 
-	return eJenzigError;
 }
 
 
@@ -117,8 +114,8 @@ int iConfigureSerialPort(int iSerialPort, speed_t tSpeed)
     cfsetispeed(&tty, tSpeed);
  
     printf("Defaults changed, 9600, 8 bit EVEN parity\n");
-	switch (iBits)
-	{
+
+	switch (iBits) {
 		case '5':
 		  tty.c_cflag = (tty.c_cflag & ~CSIZE) | CS5;
 		  break;
@@ -158,18 +155,13 @@ int iConfigureSerialPort(int iSerialPort, speed_t tSpeed)
 	return 0;
 }
 
-int eFlushSerialPort(int iSerialPort)
-{
-	int eJenzigError;
+void eFlushSerialPort(int iSerialPort) {
 
 	int iBytesReceived;
 	char cByte;
 
-	do
-	{
+	do {
 		iBytesReceived = read(iSerialPort, &cByte, 1);
 	}
 	while (iBytesReceived > 0);
-
-	return eJenzigError;
 }

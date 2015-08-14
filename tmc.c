@@ -510,7 +510,7 @@ int main(int argc, char *argv[]) {
         }
     }
     
-    tty=u16OpenSerialPort(serialDev,0);
+    tty=openSerialPort(serialDev,0);
     
     printf("%d\n",tty);
     
