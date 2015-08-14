@@ -539,14 +539,14 @@ int main(int argc, char *argv[]) {
         printf("Func=%02x\n",func);
 
         switch ( func ) {
-            case 0x03:
-            case 0x04: // Read registers 
+            case 0x03: // Read Holding Registers (RW)
+            case 0x04: // Read Input registers (RO)
                 exception = readRegisters(tty,rtu,func);
                 break;
             case 0x05: // Write single coil
                 exception = writeSingleCoil( tty,rtu, func);
                 break;
-            case 0x10:
+            case 0x10: // Write Multiple Registers
                 exception=writeMultipleRegisters(tty,rtu,func);
                 break;
             default:
