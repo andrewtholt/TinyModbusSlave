@@ -1,0 +1,6 @@
+
+1. Instead of a globally addresable array use shared memory.
+
+2. Create 2 shared memory regisons, one R/W and one R/O.  Acces controlled via a semaphore.
+
+3. Read an ini file to conffigure size & id plust semaphore
