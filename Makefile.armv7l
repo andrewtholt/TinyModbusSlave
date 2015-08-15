@@ -1,0 +1,16 @@
+CFLAGS = -g -Wunused-variable
+
+all:	tmc
+
+
+tmc:	tmc.o libser.o
+	$(CC) $(CFLAGS) -o tmc tmc.o libser.o
+
+tmc.o:	tmc.c
+	$(CC) $(CFLAGS) -c tmc.c -o tmc.o
+
+libser.o:	libser.c
+	$(CC) $(CFLAGS) -c libser.c -o libser.o
+
+clean:
+	rm -f cscope.out *.o tmc
