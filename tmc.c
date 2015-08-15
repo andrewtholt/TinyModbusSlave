@@ -469,7 +469,7 @@ int joinModbus( tty ) {
 }
 
 void usage() {
-    printf("\n\n\t pmc -h|-p <device>\n\n");
+    printf("\n\n\t tmc -h|-p <device>\n\n");
     printf("\t\t-h\t\tHelp\n");
     printf("\t\t-p <device>\tSpecify serial port.\n\n");
 
