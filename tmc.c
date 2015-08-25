@@ -99,8 +99,7 @@ void athCalcCRC(unsigned char *puchMsg,unsigned int usDataLen ) {
     unsigned char       uIndex; /* will index into CRC lookup table   */
     
     
-    while (usDataLen--) /* pass through message buffer   */
-    {
+    while (usDataLen--) /* pass through message buffer   */ {
         uIndex = uchCRCLo ^ *puchMsg++; /* calculate the CRC   */
         uchCRCLo = uchCRCHi ^ auchCRCHi[uIndex];
         uchCRCHi = auchCRCLo[uIndex];
