@@ -178,19 +178,18 @@ int readRegisters(int tty, unsigned char rtu, unsigned char func) {
     
     address |= ( addressLo & 0xff);
     printf("Address %04x\n", address);
-    
+    //
     // Get count hi
     //
     tmp=getByte(tty);
     dataCount = (tmp << 8) & 0xff00;
-    
+    //
     // get count lo
     //
     tmp = getByte(tty);
     
     dataCount |= (tmp & 0xff);
     printf("Count   %04x\n", dataCount);
-    
     //
     // Get CRC
     //
@@ -263,12 +262,12 @@ int writeMultipleRegisters(int tty, unsigned char rtu, unsigned char func) {
     
     address |= ( addressLo & 0xff);
     printf("Address %04x\n", address);
-    
+    //
     // Get count hi
     //
     tmp=getByte(tty);
     dataCount = (tmp << 8) & 0xff00;
-    
+    //
     // get count lo
     //
     tmp = getByte(tty);
@@ -280,6 +279,7 @@ int writeMultipleRegisters(int tty, unsigned char rtu, unsigned char func) {
     printf("Byte Count %02d\n",byteCount);
     
     for (i=0; i<byteCount; i++) {
+        //
         // FIX THIS
         // Copy to a holding area until CRC verified.
         //
@@ -452,13 +452,13 @@ int joinModbus( tty ) {
      the time between packets be >= 3.5 chars (t3.5).
      
      If the baud rate is greater than 19200 then the inter char timeout is fixed at 750 micro seconds
-     and the inter vopacket delay at 1.75 ms (t3.5).
+     and the inter packet delay at 1.75 ms (t3.5).
      
-     When joining a modbus network a slave must wait until there is at leats t3.5 of silence.
+     When joining a modbus network a slave must wait until there is at least t3.5 of silence.
      
      start timer t3.5
      begin
-        if charcter recieved then
+        if character recieved then
             discard
             restart timer
         endif
@@ -490,7 +490,7 @@ int main(int argc, char *argv[]) {
     
     char serialDev[255];
     strcpy(serialDev,"/dev/ttyUSB0");
-//    char *serialDev="/dev/tty.usbserial-A600drA9";
+
     uchCRCHi = 0xFF;
     uchCRCLo = 0xFF; 
     
